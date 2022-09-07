@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Development</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <div class="header">
+      <div class="left-side-header">
+        <img alt="menu" id="menu" />
+        <div id="site-name">ToDoApplication</div>
+      </div>
+      <div class="right-side-header"></div>
+    </div>
+    <div class="main">
+      <div class="navbar">
+        <div class="all-projects">
+          <div class="navbar-projects" id="inbox">
+            <img alt="" class="icon" /> All projects
+          </div>
+          <div class="navbar-projects" id="today-inbox">
+            <img alt="" class="icon" />Today
+          </div>
+          <div class="navbar-projects" id="this-weeek-inbox">
+            <img alt="" class="icon" />This week
+          </div>
+        </div>
+        <div class="new-project">
+          <button class="new-project-btn">New project</button>
+        </div>
+      </div>
+      <div class="app">
+        <div class="to-do-list">All projects</div>
+        <div class="list-of-projects">
+          <div class="project">
+            <div class="title-list">XD</div>
+            <div class="desc-list">XDD</div>
+            <div class="date-list">07.09.2022</div>
+            <div class="priority-list">medium</div>
+            <div class="notes-list">
+              I need to get on it before the October starts
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <input
+            placeholder="Title"
+            type="text"
+            class="desc"
+            id="title"
+            maxlength="12"
+          />
+          <input
+            placeholder="Description"
+            type="text"
+            class="desc"
+            id="description"
+          />
+          <div class="date">
+            <input
+              type="date"
+              id="date"
+              name="toDoDate"
+              value="2022-09-07"
+              min="2022-09-07"
+            />
+          </div>
+
+          <div class="priority">
+            Priority:
+            <select name="priority" id="priority">
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+            </select>
+          </div>
+          <input placeholder="Notes" type="text" class="desc" id="notes" />
+          <button class="add-to-do">Add new project</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

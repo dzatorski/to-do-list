@@ -1,0 +1,154 @@
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-width: 100vh;
+  font-family: roboto, sans-serif;
+}
+
+.hello {
+  color: red;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  height: 10%;
+}
+
+.left-side-header {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+#menu {
+  padding: 12px;
+  height: 24px;
+  width: 24px;
+}
+
+#site-name {
+  padding: 12px;
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.main {
+  display: flex;
+  height: 90vh;
+  width: 100%;
+}
+
+.navbar {
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
+  padding: 30px;
+}
+
+.all-projects {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.app {
+  width: 85%;
+}
+
+.icon {
+  height: 20px;
+  width: 20px;
+}
+
+.navbar-projects {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.to-do-list {
+  padding: 30px;
+  font-size: 26px;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 30%;
+  height: 30%;
+  padding: 20px;
+  gap: 20px;
+  border-radius: 20px;
+}
+
+.desc {
+  width: 300px;
+  border: none;
+  border-bottom: 1px solid salmon;
+}
+
+.close {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 1.5rem;
+}
+
+.priority {
+  display: flex;
+  gap: 20px;
+  font-size: 1rem;
+}
+
+#priority {
+  width: 100px;
+  border: none;
+}
+
+#priority:focus {
+  outline: none;
+  border: none;
+}
+
+.desc:focus {
+  outline: none;
+}
+
+.add-to-do {
+  margin-top: 20px;
+  width: 120px;
+  outline: none;
+  border: 1px solid;
+  border-radius: 10px;
+}
+
+#start {
+  width: 150px;
+}
+
+.list-of-projects {
+  display: flex;
+  flex-direction: column;
+}
+
+.project {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr) repeat(1, 1fr) repeat(1, 1fr) repeat(1, 1fr) repeat(1, 4fr) repeat(1, 1fr);
+  padding: 30px;
+  gap: 20px;
+}/*# sourceMappingURL=style.css.map */
