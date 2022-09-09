@@ -27,13 +27,18 @@
           </div>
         </div>
         <div class="new-project">
-          <button class="new-project-btn">New project</button>
+          <button class="new-task-btn">New task</button>
+          <button class="new-project-btn">New project section</button>
+        </div>
+        <div class="projects-list">
+          Projects:
+          <ul></ul>
         </div>
       </div>
       <div class="app">
         <div class="to-do-list">All projects</div>
-        <div class="list-of-projects">
-          <div class="project">
+        <div class="list-of-tasks">
+          <div class="task">
             <div class="title-list">XD</div>
             <div class="desc-list">XDD</div>
             <div class="date-list">07.09.2022</div>
@@ -79,8 +84,20 @@
             </select>
           </div>
           <input placeholder="Notes" type="text" class="desc" id="notes" />
-          <button class="add-to-do">Add new project</button>
+          <button class="add-to-do">Add new task</button>
         </div>
+      </div>
+    </div>
+    <div class="modal-project">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <input
+          placeholder="Project"
+          type="text"
+          class="project-input"
+          maxlength="12"
+        />
+        <button class="add-new-project-btn">Add new project</button>
       </div>
     </div>
   </body>

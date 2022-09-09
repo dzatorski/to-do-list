@@ -13,6 +13,8 @@ body {
   display: flex;
   justify-content: space-between;
   height: 10%;
+  background: #555;
+  color: white;
 }
 
 .left-side-header {
@@ -44,6 +46,9 @@ body {
   flex-direction: column;
   gap: 100px;
   padding: 30px;
+  background: #555;
+  color: white;
+  font-weight: 600;
 }
 
 .all-projects {
@@ -141,14 +146,42 @@ body {
   width: 150px;
 }
 
-.list-of-projects {
+.list-of-tasks {
   display: flex;
   flex-direction: column;
+  gap: 5px;
 }
 
-.project {
+.task {
   display: grid;
-  grid-template-columns: repeat(1, 1fr) repeat(1, 1fr) repeat(1, 1fr) repeat(1, 1fr) repeat(1, 4fr) repeat(1, 1fr);
+  grid-template-columns:
+    repeat(1, 1fr) repeat(1, 1fr) repeat(1, 1fr) repeat(1, 4fr)
+    repeat(1, 1fr) repeat(1, 1fr);
+  grid-template-rows: repeat(auto, 2fr);
   padding: 30px;
   gap: 20px;
-}/*# sourceMappingURL=style.css.map */
+} /*# sourceMappingURL=style.css.map */
+
+.modal-project {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+.projects-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.project {
+  text-decoration: none;
+  list-style: none;
+  width: 200px;
+}
+.project:hover {
+  background-color: #888;
+}
