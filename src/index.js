@@ -34,16 +34,16 @@ let toDoArr = [];
 projectsArr.push(new newProjectCl(`Project 1`));
 projectsArr.push(new newProjectCl(`Project 2`));
 let activeProject = projectsArr[0];
+let activeProjectIndex = 0;
+
 const editBtnFunc = () => {
   const editBtn = document.querySelectorAll(`.edit-btn`);
-  editBtn.forEach((el) => {
-    el.addEventListener(`click`, () => {
-      console.log(`xddd`);
-    });
+  editBtn.forEach((el, i) => {
+    el.addEventListener(`click`, () => {});
   });
 };
 
-const refreshUi = () => {
+const refreshModalUi = () => {
   title.value = ``;
   description.value = ``;
   date.value = ``;
@@ -94,19 +94,19 @@ activeProject.contents.push(
 );
 
 const checkPriority = () => {
-  toDoArr.forEach((el, i) => {
-    if (el.priority === `medium`) {
+  activeProject?.contents.forEach((el, i) => {
+    if (el?.priority === `medium`) {
       document.querySelector(`#task${i}`).style.border = `solid 2px orange`;
-    } else if (el.priority === `low`) {
+    } else if (el?.priority === `low`) {
       document.querySelector(`#task${i}`).style.border = `solid 2px green `;
-    } else if (el.priority === `high`) {
+    } else if (el?.priority === `high`) {
       document.querySelector(`#task${i}`).style.border = `solid 2px red`;
     }
   });
 };
 const renderToDo = (el) => {
   listOfProjects.innerHTML = ``;
-  activeProject.contents.forEach((el, index) => {
+  activeProject?.contents.forEach((el, index) => {
     el.index = index;
     let htmlTemplate = `<div class="task" id="task${index}">
     <div class="title-list">${el.title}</div>
@@ -115,12 +115,12 @@ const renderToDo = (el) => {
     <div class="notes-list">
     ${el.notes}
     </div>
-    <button class="checklist-btn">Done</button>
+    <button class="checklist-btn">X</button>
     <button class="edit-btn">Edit</button>
     </div>`;
     listOfProjects.insertAdjacentHTML(`beforeend`, htmlTemplate);
   });
-  refreshUi();
+  refreshModalUi();
   checkPriority();
 };
 renderToDo();
@@ -130,7 +130,9 @@ newProjectBtn.addEventListener(`click`, () => {
 });
 
 addNewProjectBtn.addEventListener(`click`, () => {
-  projectsArr.push(new newProjectCl(projectInput.value));
+  projectsArr.push(
+    new newProjectCl(projectInput.value ? projectInput.value : `1`)
+  );
   refreshProjects();
   modalProject.style.display = `none`;
 });
@@ -140,20 +142,27 @@ const projectsShow = () => {
   projects.forEach((el, i) => {
     el.addEventListener(`click`, () => {
       activeProject = projectsArr[`${i}`];
-      console.log(activeProject);
+      activeProjectIndex = i;
       renderToDo();
     });
   });
 };
-
+const removeProject = () => {
+  const removeProject = document.querySelectorAll(`.remove-project`);
+  removeProject.forEach((el) => {
+    el.addEventListener(`click`, () => {
+      projectsArr.splice(activeProjectIndex, 1);
+      refreshProjects();
+    });
+  });
+};
 const refreshProjects = () => {
-  projectsList.innerHTML = ``;
+  projectsList.innerHTML = `<div>Projects:</div>`;
   projectsArr.forEach((el, i) => {
-    let htmlTemplate = `<li class="project" id="project${i}">${el.title}</li>`;
+    let htmlTemplate = `<li class="project" id="project${i}">${el.title}<button class="remove-project">&times;</button></li>`;
     projectsList.insertAdjacentHTML(`beforeend`, htmlTemplate);
   });
+  removeProject();
   projectsShow();
 };
 refreshProjects();
-
-console.log(activeProject);

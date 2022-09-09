@@ -9,8 +9,9 @@ export class toDoCl {
   }
 }
 export class newProjectCl {
-  constructor(title, contents) {
+  constructor(title, contents, index) {
     this.title = title;
     this.contents = [];
+    this.index = index;
   }
 }
