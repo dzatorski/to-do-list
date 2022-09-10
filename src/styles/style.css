@@ -44,7 +44,7 @@ body {
 .navbar {
   display: flex;
   flex-direction: column;
-  gap: 100px;
+  gap: 50px;
   padding: 30px;
   background: #555;
   color: white;
@@ -75,9 +75,11 @@ body {
 .to-do-list {
   padding: 30px;
   font-size: 26px;
+  margin-left: 50px;
 }
 
-.modal {
+.modal,
+.modal-edit {
   display: none;
   position: fixed;
   z-index: 1;
@@ -88,7 +90,9 @@ body {
   background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
 
-.modal-content {
+.modal-content,
+.modal-content-add,
+.modal-content-edit {
   display: flex;
   flex-direction: column;
   background-color: #fefefe;
@@ -150,7 +154,8 @@ body {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding: 10px;
+  padding: 30px;
+  margin-left: 50px;
 }
 
 .task {
@@ -209,6 +214,7 @@ body {
   background: #555;
   color: white;
   border: none;
+  width: 100px;
 }
 
 .new-project > button:hover {

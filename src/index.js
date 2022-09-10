@@ -13,11 +13,13 @@ inboxImg.src = inbox;
 const newTaskButton = document.querySelector(`.new-task-btn`);
 const modal = document.querySelector(`.modal`);
 const modalProject = document.querySelector(`.modal-project`);
+const modalEdit = document.querySelector(`.modal-edit`);
 const closeModal = document.querySelectorAll(`.close`);
 
 const newProjectBtn = document.querySelector(`.new-project-btn`);
 const addNewProjectBtn = document.querySelector(`.add-new-project-btn`);
 const addBtn = document.querySelector(`.add-to-do`);
+const editModalBtn = document.querySelector(`.edit-modal-btn`);
 
 const title = document.querySelector(`#title`);
 const description = document.querySelector(`#description`);
@@ -25,21 +27,45 @@ const date = document.querySelector(`#date`);
 const priority = document.querySelector(`#priority`);
 const notes = document.querySelector(`#notes`);
 
+const editTitle = document.querySelector(`#title-edit`);
+const editDescription = document.querySelector(`#description-edit`);
+const editDate = document.querySelector(`#date-edit`);
+const editPriority = document.querySelector(`#priority-edit`);
+const editNotes = document.querySelector(`#notes-edit`);
+
 const listOfProjects = document.querySelector(`.list-of-tasks`);
 const projectInput = document.querySelector(`.project-input`);
 const projectsList = document.querySelector(`.projects-list`);
 
-let projectsArr = [];
-let toDoArr = [];
-projectsArr.push(new newProjectCl(`Project 1`));
-projectsArr.push(new newProjectCl(`Project 2`));
+let projectsArr = JSON.parse(window.localStorage.getItem(`projectsArr`))
+  ? JSON.parse(window.localStorage.getItem(`projectsArr`))
+  : [];
+
 let activeProject = projectsArr[0];
-let activeProjectIndex = 0;
 
 const editBtnFunc = () => {
   const editBtn = document.querySelectorAll(`.edit-btn`);
+  let editIndex = 0;
   editBtn.forEach((el, i) => {
-    el.addEventListener(`click`, () => {});
+    el.addEventListener(`click`, () => {
+      modalEdit.style.display = `flex`;
+      editTitle.value = activeProject.contents[i].title;
+      editDescription.value = activeProject.contents[i].description;
+      editDate.value = activeProject.contents[i].date;
+      editPriority.value = activeProject.contents[i].priority;
+      editNotes.value = activeProject.contents[i].notes;
+      editIndex = i;
+    });
+  });
+  editModalBtn.addEventListener(`click`, () => {
+    activeProject.contents[editIndex].title = editTitle.value;
+    activeProject.contents[editIndex].description = editDescription.value;
+    activeProject.contents[editIndex].date = editDate.value;
+    activeProject.contents[editIndex].priority = editPriority.value;
+    activeProject.contents[editIndex].notes = editNotes.value;
+    modalEdit.style.display = `none`;
+    window.localStorage.setItem("projectsArr", JSON.stringify(projectsArr));
+    renderToDoTasks();
   });
 };
 
@@ -49,16 +75,17 @@ const refreshModalUi = () => {
   date.value = ``;
   priority.value = ``;
   notes.value = ``;
-  editBtnFunc();
 };
 
 newTaskButton.addEventListener(`click`, () => {
   modal.style.display = `flex`;
+  refreshModalUi();
 });
 closeModal.forEach((el) => {
   el.addEventListener(`click`, () => {
     modal.style.display = `none`;
     modalProject.style.display = `none`;
+    modalEdit.style.display = `none`;
   });
 });
 
@@ -78,20 +105,10 @@ addBtn.addEventListener(`click`, () => {
       notes.value ? notes.value : `Temp notes`
     )
   );
+  window.localStorage.setItem("projectsArr", JSON.stringify(projectsArr));
   modal.style.display = `none`;
-  console.log(toDoArr);
-  renderToDo();
+  renderToDoTasks();
 });
-
-activeProject.contents.push(
-  new toDoCl(
-    `Test`,
-    `No desc`,
-    `15.09.2022`,
-    `medium`,
-    `I need to get on it before the October starts`
-  )
-);
 
 const checkPriority = () => {
   activeProject?.contents.forEach((el, i) => {
@@ -104,7 +121,19 @@ const checkPriority = () => {
     }
   });
 };
-const renderToDo = (el) => {
+
+const removeTask = () => {
+  let removeTask = document.querySelectorAll(`.checklist-btn`);
+  removeTask.forEach((el, i) => {
+    el.addEventListener(`click`, () => {
+      activeProject?.contents.splice(i, 1);
+      window.localStorage.setItem("projectsArr", JSON.stringify(projectsArr));
+      renderToDoTasks();
+    });
+  });
+};
+
+const renderToDoTasks = (el) => {
   listOfProjects.innerHTML = ``;
   activeProject?.contents.forEach((el, index) => {
     el.index = index;
@@ -121,9 +150,11 @@ const renderToDo = (el) => {
     listOfProjects.insertAdjacentHTML(`beforeend`, htmlTemplate);
   });
   refreshModalUi();
+  editBtnFunc();
   checkPriority();
+  removeTask();
 };
-renderToDo();
+renderToDoTasks();
 
 newProjectBtn.addEventListener(`click`, () => {
   modalProject.style.display = `flex`;
@@ -134,7 +165,8 @@ addNewProjectBtn.addEventListener(`click`, () => {
     new newProjectCl(projectInput.value ? projectInput.value : `1`)
   );
   refreshProjects();
-  modalProject.style.display = `none`;
+  window.localStorage.setItem("projectsArr", JSON.stringify(projectsArr)),
+    (modalProject.style.display = `none`);
 });
 
 const projectsShow = () => {
@@ -142,20 +174,22 @@ const projectsShow = () => {
   projects.forEach((el, i) => {
     el.addEventListener(`click`, () => {
       activeProject = projectsArr[`${i}`];
-      activeProjectIndex = i;
-      renderToDo();
+      renderToDoTasks();
     });
   });
 };
+
 const removeProject = () => {
   const removeProject = document.querySelectorAll(`.remove-project`);
-  removeProject.forEach((el) => {
+  removeProject.forEach((el, i) => {
     el.addEventListener(`click`, () => {
-      projectsArr.splice(activeProjectIndex, 1);
+      projectsArr.splice(i, 1);
+      window.localStorage.setItem("projectsArr", JSON.stringify(projectsArr));
       refreshProjects();
     });
   });
 };
+
 const refreshProjects = () => {
   projectsList.innerHTML = `<div>Projects:</div>`;
   projectsArr.forEach((el, i) => {

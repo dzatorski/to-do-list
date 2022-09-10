@@ -49,8 +49,10 @@
           </div>
         </div>
       </div>
+    </div>
+    <div class="modals">
       <div class="modal">
-        <div class="modal-content">
+        <div class="modal-content-add">
           <span class="close">&times;</span>
           <input
             placeholder="Title"
@@ -87,18 +89,56 @@
           <button class="add-to-do">Add new task</button>
         </div>
       </div>
-    </div>
-    <div class="modal-project">
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <input
-          placeholder="Project"
-          type="text"
-          class="project-input"
-          maxlength="12"
-          minlength="1"
-        />
-        <button class="add-new-project-btn">Add new project</button>
+      <div class="modal-project">
+        <div class="modal-content-add">
+          <span class="close">&times;</span>
+          <input
+            placeholder="Project"
+            type="text"
+            class="project-input"
+            maxlength="12"
+            minlength="1"
+          />
+          <button class="add-new-project-btn">Add new project</button>
+        </div>
+      </div>
+      <div class="modal-edit">
+        <div class="modal-content-edit">
+          <span class="close">&times;</span>
+          <input
+            placeholder="Title"
+            type="text"
+            class="desc"
+            id="title-edit"
+            maxlength="12"
+          />
+          <input
+            placeholder="Description"
+            type="text"
+            class="desc"
+            id="description-edit"
+          />
+          <div class="date">
+            <input
+              type="date"
+              id="date-edit"
+              name="toDoDate"
+              value="2022-09-07"
+              min="2022-09-07"
+            />
+          </div>
+
+          <div class="priority">
+            Priority:
+            <select name="priority" id="priority-edit">
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+            </select>
+          </div>
+          <input placeholder="Notes" type="text" class="desc" id="notes-edit" />
+          <button class="edit-modal-btn">Edit</button>
+        </div>
       </div>
     </div>
   </body>
