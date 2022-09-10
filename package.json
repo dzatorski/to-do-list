@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/dzatorski/to-do-list#readme",
   "dependencies": {
+    "date-fns": "^2.29.2",
     "lodash": "^4.17.21"
   },
   "devDependencies": {

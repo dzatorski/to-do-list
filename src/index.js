@@ -42,30 +42,52 @@ let projectsArr = JSON.parse(window.localStorage.getItem(`projectsArr`))
   : [];
 
 let activeProject = projectsArr[0];
+let editIndex = 0;
 
 const editBtnFunc = () => {
   const editBtn = document.querySelectorAll(`.edit-btn`);
-  let editIndex = 0;
+
   editBtn.forEach((el, i) => {
     el.addEventListener(`click`, () => {
       modalEdit.style.display = `flex`;
+      editIndex = i;
+      console.log(editIndex);
       editTitle.value = activeProject.contents[i].title;
       editDescription.value = activeProject.contents[i].description;
       editDate.value = activeProject.contents[i].date;
       editPriority.value = activeProject.contents[i].priority;
       editNotes.value = activeProject.contents[i].notes;
-      editIndex = i;
+      editModalBtn.addEventListener(`click`, () => {
+        console.log(editIndex);
+        activeProject.contents[editIndex].title = editTitle.value;
+        activeProject.contents[editIndex].description = editDescription.value;
+        activeProject.contents[editIndex].date = editDate.value;
+        activeProject.contents[editIndex].priority = editPriority.value;
+        activeProject.contents[editIndex].notes = editNotes.value;
+        modalEdit.style.display = `none`;
+        window.localStorage.setItem("projectsArr", JSON.stringify(projectsArr));
+        renderToDoTasks();
+        editModalBtn.removeEventListener(`type`);
+      });
     });
   });
-  editModalBtn.addEventListener(`click`, () => {
-    activeProject.contents[editIndex].title = editTitle.value;
-    activeProject.contents[editIndex].description = editDescription.value;
-    activeProject.contents[editIndex].date = editDate.value;
-    activeProject.contents[editIndex].priority = editPriority.value;
-    activeProject.contents[editIndex].notes = editNotes.value;
-    modalEdit.style.display = `none`;
-    window.localStorage.setItem("projectsArr", JSON.stringify(projectsArr));
-    renderToDoTasks();
+};
+
+const refreshUI = (el) => {
+  listOfProjects.innerHTML = ``;
+  activeProject?.contents.forEach((el, index) => {
+    el.index = index;
+    let htmlTemplate = `<div class="task" id="task${index}">
+    <div class="title-list">${el.title}</div>
+    <div class="desc-list">${el.description}</div>
+    <div class="date-list">${el.date}</div>
+    <div class="notes-list">
+    ${el.notes}
+    </div>
+    <button class="checklist-btn">X</button>
+    <button class="edit-btn">Edit</button>
+    </div>`;
+    listOfProjects.insertAdjacentHTML(`beforeend`, htmlTemplate);
   });
 };
 
@@ -133,22 +155,8 @@ const removeTask = () => {
   });
 };
 
-const renderToDoTasks = (el) => {
-  listOfProjects.innerHTML = ``;
-  activeProject?.contents.forEach((el, index) => {
-    el.index = index;
-    let htmlTemplate = `<div class="task" id="task${index}">
-    <div class="title-list">${el.title}</div>
-    <div class="desc-list">${el.description}</div>
-    <div class="date-list">${el.date}</div>
-    <div class="notes-list">
-    ${el.notes}
-    </div>
-    <button class="checklist-btn">X</button>
-    <button class="edit-btn">Edit</button>
-    </div>`;
-    listOfProjects.insertAdjacentHTML(`beforeend`, htmlTemplate);
-  });
+const renderToDoTasks = () => {
+  refreshUI();
   refreshModalUi();
   editBtnFunc();
   checkPriority();
